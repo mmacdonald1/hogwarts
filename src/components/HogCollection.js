@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 import HogCard from './HogCard'
-import hogs from '../porkers_data';
+
 
 export default class HogCollection extends Component{
-  findHogImage=()=>{
-    hogs.forEach((hog) => {
-      let name = hog.name
-      console.log(name)
-    })
+  findHogImage=(hog)=>{
+      let name = hog.name.split(' ').join('_').toLowerCase()
+      let fileName = require(`../hog-imgs/${name}.jpg`)
+      console.log('returning', fileName)
+      return fileName
   }
 
   generateHogs=()=>{
-      return hogs.map((hog)=> <HogCard key={hog.name} hog={hog} />)
+      return this.props.hogs.map((hog)=> <HogCard key={hog.name} hog={hog} image={this.findHogImage(hog)} />)
   }
 
   render(){
